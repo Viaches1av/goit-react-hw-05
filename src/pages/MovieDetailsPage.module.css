@@ -1,0 +1,86 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.goBackButton {
+  background-color: #2532bc;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin: 24px 0;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.goBackButton:hover {
+  background-color: #4950a5;
+}
+
+.goBackButton:active {
+  box-shadow: none;
+  transform: translateY(2px);
+}
+
+.movieDetails {
+  display: flex;
+  color: #fff;
+}
+
+.poster {
+  max-width: 400px;
+}
+
+.details {
+  font-size: 19px;
+  padding-left: 24px;
+  text-align: left;
+}
+
+.title {
+  text-align: center;
+  color: #fff;
+  font-size: 36px; 
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+.rating {
+  padding: 15px 0;
+  font-weight: bold;
+  line-height: 2;
+  border-bottom: #ffffffba 1px solid;
+}
+
+.overview {
+  padding: 15px 0;
+  line-height: 2;
+  border-bottom: #ffffffba 1px solid;
+}
+
+.genres {
+  padding: 15px 0;
+  margin-bottom: 20px;
+  line-height: 2;
+  border-bottom: #ffffffba 1px solid;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  margin-top: 60px;
+}
+
+.navLink {
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #90bff2;
+}
+
+.navLink:hover {
+  text-decoration: underline;
+}

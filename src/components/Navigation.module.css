@@ -1,0 +1,21 @@
+.nav {
+  background-color: #2d2d4a;
+  padding: 17px;
+  display: flex;
+}
+
+.link {
+  font-size: 19px;
+  color: #fff;
+  line-height: 1.5;
+  text-decoration: none;
+  margin: 0 19px;
+}
+
+.linkActive {
+  color: #fff; 
+  font-size: 19px;
+  font-weight: bold;
+  margin: 0 19px;
+  text-decoration: underline;
+}

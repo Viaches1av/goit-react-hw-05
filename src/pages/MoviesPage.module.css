@@ -1,0 +1,93 @@
+.container{
+overflow-y: hidden;
+}
+
+.header {
+  color: #fff;
+  font-size: 36px; 
+  font-weight: bold;
+  margin: 24px 0;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.input {
+  padding: 10px;
+  margin-right: 23px;
+  font-size: 16px;
+  background-color: #2532bc;
+  color: #fff;
+  border: 1px solid #2532bc;
+  border-radius: 3px;
+  transition: background-color 0.3s, border-color 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.input:focus {
+  background-color: #fff;
+  color: #000;
+  border-color: #2532bc;
+  outline: none;
+}
+
+.input::placeholder {
+  color: #ffffff;
+}
+
+.input:not(:placeholder-shown) {
+  background-color: #fff;
+  color: #000;
+}
+
+.button {
+  background-color: #2532bc;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button:hover {
+  background-color: #4950a5;
+}
+
+.button:active {
+  box-shadow: none;
+  transform: translateY(2px);
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.resetButton {
+  background-color: #2532bc;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.resetButton:hover {
+  background-color: #4950a5;
+}
+
+.resetButton:active {
+  box-shadow: none;
+  transform: translateY(2px);
+}
