@@ -2,17 +2,21 @@ import { useState, useEffect, useRef } from 'react';
 import { useSearchParams, useLocation } from 'react-router-dom';
 import MovieList from '../components/MovieList';
 import styles from './MoviesPage.module.css';
+
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') || '';
   const location = useLocation();
-  const backLink = location.state ?? '/';
   const inputRef = useRef(null);
+  const [isOpened, setIsOpened] = useState(false);
 
   useEffect(() => {
-    if (!query) return;
+    if (!query) {
+      setMovies([]);
+      return;
+    }
 
     const fetchMovies = async () => {
       setError(null);
@@ -21,8 +25,8 @@ const MoviesPage = () => {
           `https://api.themoviedb.org/3/search/movie?query=${query}`,
           {
             headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3Yzg3YzcxNWM4YTg0ZmNmMDI0NDhhYzM3YmMyNzJhZiIsIm5iZiI6MTcyMjg2NDAwNy4zODkzOTMsInN1YiI6IjY2YjBjZmRiZDYwYmQ2MTA5N2RjNWFjMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VIMQwuMLcR7F7k13GJ-s4PYq0VkIBydmxSJz4vr8BQo`
-            }
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3Yzg3YzcxNWM4YTg0ZmNmMDI0NDhhYzM3YmMyNzJhZiIsIm5iZiI6MTcyMjg2NDAwNy4zODkzOTMsInN1YiI6IjY2YjBjZmRiZDYwYmQ2MTA5N2RjNWFjMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VIMQwuMLcR7F7k13GJ-s4PYq0VkIBydmxSJz4vr8BQo`
+            },
           }
         );
         const data = await response.json();
@@ -40,44 +44,89 @@ const MoviesPage = () => {
     fetchMovies();
   }, [query]);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
+  const handleSearch = () => {
     const searchQuery = inputRef.current.value.trim();
-    setSearchParams({ query: searchQuery });
+    if (searchQuery) {
+      setSearchParams({ query: searchQuery });
+    }
+  };
+
+  const handleToggleSearch = () => {
+    if (!isOpened) {
+      setIsOpened(true);
+      setTimeout(() => {
+        inputRef.current.focus();
+      }, 300);
+    } else {
+      handleSearch();
+    }
   };
 
   const handleReset = () => {
     setSearchParams({});
     setMovies([]);
     inputRef.current.value = '';
+    setIsOpened(false);
   };
 
   return (
     <div className={styles.container}>
       <h1 className={styles.header}>Search Movies</h1>
-      <form onSubmit={handleSearch} className={styles.form}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSearch();
+        }}
+        className={`${styles.form} ${styles.search} ${
+          isOpened ? styles.opened : ''
+        }`}
+      >
         <input
           type="text"
           name="query"
-          defaultValue={query}
           placeholder="Search for movies"
-          className={styles.input}
+          className={`${styles.input} ${styles['searchInput']}`}
           ref={inputRef}
         />
-        <button type="submit" className={styles.button}>
-          <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
+        <button
+          type="button"
+          className={styles.searchButton}
+          onClick={handleToggleSearch}
+        >
+          <svg
+            className="w-6 h-6 text-gray-800 dark:text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            fill="none"
+            viewBox="0 0 25 25"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
+            />
           </svg>
         </button>
-        <button type="button" onClick={handleReset} className={styles.resetButton}>
-        <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 9h13a5 5 0 0 1 0 10H7M3 9l4-4M3 9l4 4"/>
-</svg>
-
+        <button
+          type="button"
+          className={styles.resetButton}
+          onClick={handleReset}
+        >
+          Reset
         </button>
       </form>
-      {error && <div className={styles.error}>{error}</div>}
-      <MovieList movies={movies} backLink={backLink} />
+      {error && (
+  <div className={styles.error}>
+    {error}
+    <button onClick={() => setSearchParams({ query })} className={styles.retryButton}>
+      Retry
+    </button>
+  </div>
+)}
+      <MovieList movies={movies} backLink={location} />
     </div>
   );
 };

@@ -7,13 +7,13 @@
   padding: 19px 0;
 }
 
-h3{
+.reviewItem h3{
   font-size: 20px;
   margin-bottom: 10px;
   font-weight: bold;
   text-align: center;
 }
 
-p{
+.reviewItem p{
   line-height: 1.8;
 }

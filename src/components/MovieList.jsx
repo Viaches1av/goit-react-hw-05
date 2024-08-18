@@ -21,8 +21,8 @@ const MovieList = ({ movies, backLink }) => {
             />
             </div>
             <div className={styles.movieInfo}>
-              <p className={styles.movieTitle}>{movie.title}</p>
-              <p className={styles.movieDetails}>{new Date(movie.release_date).getFullYear()}</p>
+              <p className={styles.movieTitle}>{movie.title || 'Untitled'}</p>
+              <p className={styles.movieDetails}>{movie.release_date ? new Date(movie.release_date).getFullYear() : 'Unknown year'}</p>
             </div>
           </Link>
         </li>

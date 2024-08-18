@@ -51,20 +51,3 @@ button:active {
   font-size: 14px;
   color: #ccc;
 }
-
-
-.actorImage {
-  width: 100%;
-  border-radius: 10px;
-}
-
-.actorName {
-  margin-top: 10px;
-  font-weight: bold;
-}
-
-.actorCharacter {
-  margin-top: 5px;
-  font-style: italic;
-  color: #555;
-}

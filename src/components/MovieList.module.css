@@ -23,7 +23,6 @@
   }
 }
 
-
 .movieItem {
   text-align: center;
   position: relative;
@@ -69,7 +68,6 @@
 .movieItem:hover .movieImageContainer::after {
   transform: translateY(-54%);
 }
-
 
 .movieImageContainer:hover::after {
   transform: perspective(600px) rotateX(10deg);

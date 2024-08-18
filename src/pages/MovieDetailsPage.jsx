@@ -7,7 +7,7 @@ const MovieDetailsPage = () => {
   const [movie, setMovie] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const backLinkLocation = location.state?.from ?? '/';
+  const backLinkLocationRef = useState(location.state?.from ?? '/')[0];
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -27,9 +27,15 @@ const MovieDetailsPage = () => {
     fetchMovieDetails();
   }, [movieId]);
 
+  const handleGoBack = () => {
+    if (backLinkLocationRef) {
+      navigate(backLinkLocationRef);
+    }
+  };  
+
   return (
     <div className={styles.container}>
-      <button onClick={() => navigate(backLinkLocation)} className={styles.goBackButton}>
+      <button onClick={handleGoBack} className={styles.goBackButton}>
         Go back
       </button>
       {movie && (
@@ -39,7 +45,7 @@ const MovieDetailsPage = () => {
             <h1 className={styles.title}>{movie.title}</h1>
             <p className={styles.rating}>Rating: {movie.vote_average} / 10</p>
             <p className={styles.overview}>{movie.overview}</p>
-            <p className={styles.genres}>Genres: {movie.genres.map(genre => genre.name).join(', ')}</p>
+            <p className={styles.genres}>Genres: {movie.genres?.map(genre => genre.name).join(', ')}</p>
             <nav className={styles.nav}>
               <Link to="cast" className={styles.navLink}>Cast</Link>
               <Link to="reviews" className={styles.navLink}>Reviews</Link>

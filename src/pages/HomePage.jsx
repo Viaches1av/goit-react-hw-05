@@ -24,7 +24,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <div>
       <h1 className={styles.title}>Popular Movies</h1>
       <MovieList movies={movies} />
     </div>

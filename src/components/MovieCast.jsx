@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import styles from './MovieCast.module.css';
 
 const MovieCast = () => {
   const { movieId } = useParams();
   const [cast, setCast] = useState([]);
-  const [showCast, setShowCast] = useState(true);
+  const [showHideButton, setShowHideButton] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation(); 
   const defaultImg = 'https://dummyimage.com/400x600/cdcdcd/000.jpg&text=No+poster';
 
   useEffect(() => {
@@ -26,30 +28,54 @@ const MovieCast = () => {
     fetchCast();
   }, [movieId]);
 
+  const handleRemoveCastFromUrl = () => {
+    const newUrl = location.pathname.replace('/cast', '');
+    navigate(newUrl, { replace: true });
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    const fullHeight = document.documentElement.scrollHeight;
+    const scrolledRatio = scrollTop / (fullHeight - windowHeight);
+
+      if (scrolledRatio > 2 / (fullHeight / windowHeight)) {
+        setShowHideButton(true);
+      } else {
+        setShowHideButton(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <div>
-      {showCast && (
-        <>
-          <button onClick={() => setShowCast(false)}>Hide cast</button>
-          <ul className={styles.castList}>
-            {cast.map(actor => (
-              <li key={actor.id} className={styles.castItem}>
-                <img
-                  src={
-                    actor.profile_path
-                      ? `https://image.tmdb.org/t/p/w500/${actor.profile_path}`
-                      : defaultImg
-                  }
-                  alt={actor.name}
-                  width={100}
-                />
-                <p>{actor.name}</p>
-                <p>Character: {actor.character}</p>
-              </li>
-            ))}
-          </ul>
-          <button onClick={() => setShowCast(false)}>Hide cast</button>
-        </>
+      <button onClick={handleRemoveCastFromUrl}>Hide</button>
+      <ul className={styles.castList}>
+        {cast.map(actor => (
+          <li key={actor.id} className={styles.castItem}>
+            <img
+              src={
+                actor.profile_path
+                  ? `https://image.tmdb.org/t/p/w500/${actor.profile_path}`
+                  : defaultImg
+              }
+              alt={actor.name}
+              width={100}
+            />
+            <p>{actor.name}</p>
+            <p>Character: {actor.character}</p>
+          </li>
+        ))}
+      </ul>
+      {showHideButton && (
+        <button onClick={handleRemoveCastFromUrl}>Hide</button>
       )}
     </div>
   );

@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useParams} from 'react-router-dom';
+import { useParams, useNavigate, useLocation} from 'react-router-dom';
 import styles from './MovieReviews.module.css';
 
 const MovieReviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
-  const [showCast, setShowCast] = useState(true);
+  const [showHideButton, setShowHideButton] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -25,11 +27,34 @@ const MovieReviews = () => {
     fetchReviews();
   }, [movieId]);
 
+  const handleRemoveCastFromUrl = () => {
+    const newUrl = location.pathname.replace('/reviews', '');
+    navigate(newUrl, { replace: true });
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      const fullHeight = document.documentElement.scrollHeight;
+      const scrolledRatio = scrollTop / (fullHeight - windowHeight);
+
+      if (scrolledRatio > 2 / (fullHeight / windowHeight)) {
+        setShowHideButton(true);
+      } else {
+        setShowHideButton(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <div>
-      {showCast && (
-        <>
-        <button onClick={() => setShowCast(false)}>Hide cast</button>
+      <button onClick={handleRemoveCastFromUrl}>Hide</button>
         <ul className={styles.reviewsList}>
         {reviews.map(review => (
           <li key={review.id} className={styles.reviewItem}>
@@ -38,9 +63,9 @@ const MovieReviews = () => {
           </li>
         ))}
       </ul>
-      <button onClick={() => setShowCast(false)}>Hide cast</button>
-      </>
-    )}
+      {showHideButton && (
+        <button onClick={handleRemoveCastFromUrl}>Hide</button>
+      )}
     </div>
   );
 };

@@ -1,7 +1,3 @@
-.container{
-overflow-y: hidden;
-}
-
 .header {
   color: #fff;
   font-size: 36px; 
@@ -9,65 +5,81 @@ overflow-y: hidden;
   margin: 24px 0;
 }
 
+@media (max-width: 768px) {
+  .header {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .searchInput {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .searchButton, .resetButton {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
 .form {
   display: flex;
   justify-content: center;
   margin-bottom: 25px;
+  position: relative;
 }
 
-.input {
-  padding: 10px;
-  margin-right: 23px;
-  font-size: 16px;
-  background-color: #2532bc;
-  color: #fff;
-  border: 1px solid #2532bc;
+.search {
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  position: relative;
+  right: -30px;
+  width: 0;
+  background: #fff;
+  border: 0;
   border-radius: 3px;
-  transition: background-color 0.3s, border-color 0.3s;
+  transition: width 0.3s ease, border-radius 0.3s ease;
+  color: #000;
+  cursor: pointer;
+  font-size: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.input:focus {
-  background-color: #fff;
-  color: #000;
-  border-color: #2532bc;
+.searchInput:focus {
   outline: none;
+  cursor: text;
 }
 
-.input::placeholder {
-  color: #ffffff;
+.search.opened .searchInput {
+  right: 0;
+  display: block;
+  width: 20rem;
+  border-radius: 3px;
+  padding: 6.64px;
 }
 
-.input:not(:placeholder-shown) {
-  background-color: #fff;
-  color: #000;
-}
-
-.button {
+.searchButton {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #2532bc;
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 3.69px 8px;
   margin-left: 10px;
-  cursor: pointer;
   border-radius: 3px;
   font-size: 14px;
   transition: background-color 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
-.button:hover {
+.searchButton:hover {
   background-color: #4950a5;
-}
-
-.button:active {
-  box-shadow: none;
-  transform: translateY(2px);
-}
-
-.error {
-  color: red;
-  margin-top: 10px;
 }
 
 .resetButton {
@@ -90,4 +102,28 @@ overflow-y: hidden;
 .resetButton:active {
   box-shadow: none;
   transform: translateY(2px);
+}
+
+.error{
+  color: #fff;
+  background: #ff7700;
+  padding: 20px;
+  font-size: 23px;
+}
+
+.retryButton {
+  background-color: #ff7700;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.retryButton:hover {
+  background-color: #ff5c00;
 }

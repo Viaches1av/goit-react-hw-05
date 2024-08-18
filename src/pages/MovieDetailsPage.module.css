@@ -31,6 +31,27 @@
   color: #fff;
 }
 
+@media (max-width: 768px) {
+  .movieDetails {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .poster {
+    width: 100%;
+  }
+
+  .details {
+    padding-left: 0;
+    text-align: center;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+}
+
+
 .poster {
   max-width: 400px;
 }
