@@ -1,11 +1,18 @@
 .reviewsList {
   list-style: none;
   padding: 0;
-  margin: 20px 0;
-  text-align: left;
+  margin: 0;
 }
 
 .reviewItem {
+  text-align: left;
+  color: #fff;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+
+  display: flex;
+  align-items: flex-start;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   padding: 20px;
@@ -14,7 +21,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-.avatarContainer{
+.avatarContainer {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
@@ -24,37 +31,27 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: #f5f5f5;
-  margin-right: 15px;
-  flex-shrink: 0;
+  background-color: #ddd;
+  margin-right: 10px;
 }
 
-.reviewContent {
-  flex: 1;
-  color: #fff;
+.avatarContent {
+  display: flex;
+  flex-direction: column;
 }
 
-.reviewItem h3 {
-  font-weight: bold;
-  color: #fff;
+.avatarContent h3 {
   margin: 0;
+  font-size: 16px;
 }
 
 .reviewDate {
-  text-align: left;
   font-size: 14px;
-  color: #a9a9a9;
-}
-
-.content{
-  padding: 0;
-  left: -20px;
+  color: #888;
 }
 
 .error {
   color: #fff;
-  font-size: 20px;
-  margin-top: 20px;
-  text-align: center;
-  width: 100%;
+  font-size: 23px;
+  margin: 15px 0;
 }
