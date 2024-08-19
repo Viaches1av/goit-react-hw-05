@@ -6,7 +6,7 @@ const MovieReviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
   const [showHideButton, setShowHideButton] = useState(false);
-  const [error, setError] = useState(null); // Добавлено состояние для ошибки
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -23,12 +23,12 @@ const MovieReviews = () => {
         }
         const data = await response.json();
         if (data.results.length === 0) {
-          setError('No reviews available for this movie.'); // Устанавливаем ошибку, если нет отзывов
+          setError('No reviews available for this movie.');
         } else {
           setReviews(data.results);
         }
       } catch (error) {
-        setError(error.message); // Устанавливаем сообщение об ошибке
+        setError(error.message);
       }
     };
 
@@ -63,27 +63,27 @@ const MovieReviews = () => {
   return (
     <div>
       <button onClick={handleRemoveCastFromUrl}>Hide</button>
-      {error ? ( // Проверка на наличие ошибки
-        <p className={styles.error}>{error}</p> // Отображение сообщения об ошибке
+      {error ? (
+        <p className={styles.error}>{error}</p>
       ) : (
-<ul className={styles.reviewsList}>
-  {reviews.map(review => (
-    <li key={review.id} className={styles.reviewItem}>
-      <div className={styles.avatarContainer}>
-        <div className={styles.avatar}></div>
-        <div className={styles.avatarContent}>
-          <h3>{review.author}</h3>
-          <p className={styles.reviewDate}>
-            {new Date(review.created_at).toLocaleDateString()}
-          </p>
-        </div>
-      </div>
-      <div className={styles.reviewContent}>
-        <p>{review.content}</p>
-      </div>
-    </li>
-  ))}
-</ul>
+        <ul className={styles.reviewsList}>
+          {reviews.map(review => (
+            <li key={review.id} className={styles.reviewItem}>
+              <div className={styles.avatarContainer}>
+                <div className={styles.avatar}></div>
+                <div className={styles.avatarContent}>
+                  <h3>{review.author}</h3>
+                  <p className={styles.reviewDate}>
+                    {new Date(review.created_at).toLocaleDateString()}
+                  </p>
+                </div>
+              </div>
+              <div className={styles.reviewContent}>
+                <p>{review.content}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
       )}
       {showHideButton && (
         <button onClick={handleRemoveCastFromUrl}>Hide</button>
